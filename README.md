@@ -2,7 +2,7 @@
 
 ## Tema
 
-**Modelos ocultos de Markov y evolución hacia modelos híbridos/profundos en reconocimiento automático de voz.**
+**Modelos ocultos de Markov y evolución hacia modelos híbridos y profundos en reconocimiento automático de voz.**
 
 ## Pregunta de investigación
 
