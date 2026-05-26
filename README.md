@@ -38,7 +38,10 @@ Para trabajarlo en Overleaf se debe cargar `docs/proyecto_integrador_hmm_asr.tex
 
 La búsqueda previa en Scopus recuperó 321 registros relacionados con HMM y reconocimiento de voz. Por integridad y claridad del proyecto, este repositorio publica únicamente la bibliografía efectivamente citada en el documento; el corpus bruto se conserva como evidencia de la actividad bibliográfica anterior.
 
+## Evidencias de la práctica
+
+La trazabilidad de la APE 007, incluidos los enlaces a los notebooks solicitados por el docente, se registra en [`docs/evidencias_ape007.md`](docs/evidencias_ape007.md).
+
 ## Estado
 
 Estructura inicial del proyecto integrador creada para la Actividad Práctico-Experimental Nro. 007 de la asignatura **Metodología de la Investigación en Computación**.
-
