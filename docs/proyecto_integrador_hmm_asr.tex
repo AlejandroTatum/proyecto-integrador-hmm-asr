@@ -1,0 +1,137 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[a4paper,left=3cm,right=2.5cm,top=2.7cm,bottom=2.5cm,headheight=42pt]{geometry}
+\usepackage{newtxtext,newtxmath}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=ieee,sorting=none]{biblatex}
+\usepackage[hidelinks]{hyperref}
+
+\addbibresource{../refs/referencias_hmm_asr_curadas.bib}
+
+\onehalfspacing
+\setlength{\parindent}{1.27cm}
+\setlength{\parskip}{0pt}
+\setlist[itemize]{leftmargin=1.1cm,itemsep=3pt,topsep=4pt}
+\renewcommand{\contentsname}{Índice}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=1.05cm]{logo_unl.png}}
+\fancyhead[R]{\small\begin{tabular}{r}UNIVERSIDAD NACIONAL DE LOJA\\Carrera de Computación\end{tabular}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\normalfont\bfseries\large}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\normalfont\bfseries\normalsize}{\thesubsection.}{0.6em}{}
+\titlespacing*{\section}{0pt}{16pt}{8pt}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+
+\hypersetup{
+  pdftitle={Modelos ocultos de Markov y evolución hacia modelos híbridos/profundos en reconocimiento automático de voz},
+  pdfauthor={Alejandro Padilla Espinoza},
+  pdfsubject={Proyecto integrador - Metodología de la Investigación en Computación}
+}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+  \thispagestyle{empty}
+  \centering
+  \includegraphics[width=3.2cm]{logo_unl.png}\\[0.8cm]
+  {\Large\bfseries UNIVERSIDAD NACIONAL DE LOJA\par}
+  \vspace{0.35cm}
+  {\large FACULTAD DE LA ENERGÍA, LAS INDUSTRIAS Y LOS RECURSOS NATURALES NO RENOVABLES\par}
+  \vspace{0.35cm}
+  {\large CARRERA DE COMPUTACIÓN\par}
+  \vfill
+  {\large\bfseries PROYECTO INTEGRADOR\par}
+  \vspace{0.65cm}
+  {\LARGE\bfseries Modelos ocultos de Markov y evolución hacia modelos híbridos/profundos en reconocimiento automático de voz\par}
+  \vfill
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabular}{rl}
+    \textbf{Asignatura:} & Metodología de la Investigación en Computación \\
+    \textbf{Docente:} & Luis Antonio Chamba Eras \\
+    \textbf{Estudiante:} & Alejandro Padilla Espinoza \\
+    \textbf{Ciclo / Paralelo:} & 4A \\
+    \textbf{Práctica:} & APE Nro. 007 \\
+    \textbf{Fecha:} & Martes 26 de mayo de 2026 \\
+  \end{tabular}
+  \vfill
+  {\large Loja -- Ecuador\par}
+  {\large 2026\par}
+\end{titlepage}
+
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\section{Introducción}
+
+El reconocimiento automático de voz (\emph{Automatic Speech Recognition}, ASR) busca transformar señales habladas en representaciones textuales que puedan ser procesadas por sistemas computacionales. Dentro de su desarrollo histórico, los modelos ocultos de Markov (\emph{Hidden Markov Models}, HMM) se consolidaron como una base estadística para representar secuencias acústicas y relacionarlas con unidades del habla. Rabiner presenta los fundamentos del modelado oculto de Markov y sus aplicaciones seleccionadas en reconocimiento de voz, convirtiéndose en una referencia central para comprender este enfoque \cite{Rabiner1989}.
+
+La evolución del campo no elimina la importancia del modelo clásico, sino que plantea nuevas formas de combinarlo con extracción de características y redes neuronales. Estudios recientes comparan HMM con redes convolucionales y arquitecturas híbridas \cite{Santos2025}, mientras que otros investigan modelos DNN--HMM en condiciones acústicas no controladas \cite{Shanthamallappa2026}. Así, el proyecto aborda la continuidad entre fundamentos estadísticos y enfoques profundos aplicados al reconocimiento de voz.
+
+\section{Planteamiento del problema}
+
+Los sistemas de reconocimiento de voz deben procesar señales variables por pronunciación, ruido ambiental, calidad de grabación y disponibilidad limitada de corpus lingüísticos. En entornos adversos, la degradación acústica afecta la representación de las características y, por consiguiente, la precisión del reconocimiento. Vaseghi y Milner estudian métodos de compensación de ruido para sistemas basados en HMM, evidenciando que la robustez acústica constituye un problema relevante del área \cite{Vaseghi1997}.
+
+Además, no todas las lenguas o escenarios disponen de grandes conjuntos de entrenamiento. De Wet et al.\ analizan el intercambio de datos acústicos para lenguas de bajo recurso dentro de sistemas HMM, mostrando la necesidad de evaluar cuidadosamente la adaptación y el refinamiento de modelos \cite{DeWet2017}. Frente a estas dificultades, las arquitecturas híbridas integran componentes estadísticos y redes profundas para abordar señales complejas o ruidosas \cite{GodvinMani2025,Shanthamallappa2026}.
+
+Por ello, se formula la siguiente pregunta de investigación:
+
+\begin{quote}
+\textbf{¿Cómo se utilizan los modelos ocultos de Markov y sus enfoques derivados en el reconocimiento de voz?}
+\end{quote}
+
+\section{Objetivos}
+
+\subsection{Objetivo general}
+
+Analizar el uso de los modelos ocultos de Markov y sus enfoques derivados en sistemas de reconocimiento automático de voz, considerando su evolución hacia arquitecturas híbridas y su aplicación en condiciones acústicas adversas o de bajo recurso.
+
+\subsection{Objetivos específicos}
+
+\begin{itemize}
+  \item Describir los fundamentos de los modelos ocultos de Markov aplicados al reconocimiento de voz.
+  \item Identificar la evolución de los sistemas HMM hacia arquitecturas híbridas con modelos de aprendizaje profundo.
+  \item Examinar aportes reportados frente a ruido, robustez acústica o disponibilidad limitada de datos.
+\end{itemize}
+
+\section{Marco referencial}
+
+\subsection{Modelos ocultos de Markov en reconocimiento de voz}
+
+Un HMM permite modelar una secuencia observable, como características extraídas de una señal de voz, a partir de estados no observables asociados con su dinámica temporal. En el contexto de ASR, este marco facilitó la representación probabilística de unidades acústicas y la evaluación de secuencias de observaciones. La revisión de Rabiner organiza los fundamentos matemáticos y su aplicación al reconocimiento de habla \cite{Rabiner1989}.
+
+\subsection{Evolución hacia arquitecturas híbridas}
+
+Los enfoques recientes buscan complementar las fortalezas temporales y probabilísticas de HMM con la capacidad representacional de las redes neuronales. Santos et al.\ comparan HMM, redes convolucionales y un enfoque híbrido en reconocimiento de voz \cite{Santos2025}. De modo relacionado, Godvin Mani y Rajesh Kumar describen un marco que integra extracción de características, aprendizaje profundo y modelado HMM \cite{GodvinMani2025}. Estos trabajos aportan sustento para estudiar la transición desde sistemas clásicos hacia arquitecturas combinadas.
+
+\subsection{Ruido, robustez y bajo recurso}
+
+La presencia de ruido y la escasez de datos representan condiciones especialmente importantes al evaluar un sistema ASR. Los métodos de compensación estudiados para HMM en ambientes adversos permiten ubicar la robustez como una línea histórica de investigación \cite{Vaseghi1997}. En contextos de bajo recurso, el estudio de De Wet et al.\ examina cómo compartir datos entre lenguas requiere estrategias cuidadosas de adaptación \cite{DeWet2017}. Por su parte, el trabajo de Shanthamallappa et al.\ aborda un modelo híbrido DNN--HMM evaluado bajo condiciones con ruido \cite{Shanthamallappa2026}.
+
+\subsection{Aplicaciones específicas}
+
+Los sistemas basados en HMM también se han examinado en aplicaciones especializadas. Lee et al.\ estudian un sistema de reconocimiento de palabras para apoyar la evaluación de disartria, utilizando HMM específicos por palabra \cite{Lee2019}. Este caso ilustra que el estudio de HMM no se limita a arquitecturas históricas, sino que puede contribuir al análisis de problemas aplicados cuando el diseño y los datos responden a un contexto definido.
+
+\section{Alcance inicial del proyecto}
+
+En esta etapa se establece la estructura documental y bibliográfica del proyecto integrador. El corpus exportado desde Scopus en la práctica previa funciona como base de búsqueda y trazabilidad; sin embargo, la bibliografía incorporada en este documento se limita a las fuentes citadas y pertinentes para la pregunta formulada. Las fases posteriores podrán profundizar el análisis comparativo o incorporar evidencia experimental si la planificación académica así lo requiere.
+
+\printbibliography[heading=bibintoc,title={Referencias}]
+
+\end{document}
