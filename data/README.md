@@ -6,3 +6,8 @@ Como insumo documental se dispone de una exportación de Scopus realizada el **2
 
 En etapas posteriores, esta carpeta podrá contener matrices de extracción o datos experimentales autorizados para publicación.
 
+## Fuentes bibliográficas HMM-ASR
+
+La tabla `fuentes_hmm_asr_30.csv` registra las 30 fuentes seleccionadas para el corpus HMM-ASR, con DOI, metadatos principales y estado local del PDF. Los PDFs completos no se publican en GitHub por trazabilidad ética y derechos de autor; se conservan únicamente en la biblioteca local de trabajo.
+
+La bibliografía completa del corpus está en `../refs/fuentes_hmm_asr_30.bib`. La bibliografía `../refs/referencias_hmm_asr_curadas.bib` se mantiene como subconjunto de referencias efectivamente citadas en el documento principal.

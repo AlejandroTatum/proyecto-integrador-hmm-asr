@@ -36,7 +36,13 @@ Para trabajarlo en Overleaf se debe cargar `docs/proyecto_integrador_hmm_asr.tex
 
 ## Trazabilidad bibliográfica
 
-La búsqueda previa en Scopus recuperó 321 registros relacionados con HMM y reconocimiento de voz. Por integridad y claridad del proyecto, este repositorio publica únicamente la bibliografía efectivamente citada en el documento; el corpus bruto se conserva como evidencia de la actividad bibliográfica anterior.
+La búsqueda previa en Scopus recuperó 321 registros relacionados con HMM y reconocimiento de voz. Por integridad y claridad del proyecto, este repositorio separa dos niveles de bibliografía: la bibliografía efectivamente citada en el documento principal y el corpus curado de 30 fuentes seleccionadas.
+
+- Bibliografía citada en el documento: [`refs/referencias_hmm_asr_curadas.bib`](refs/referencias_hmm_asr_curadas.bib).
+- Corpus bibliográfico de 30 fuentes: [`refs/fuentes_hmm_asr_30.bib`](refs/fuentes_hmm_asr_30.bib).
+- Tabla de metadatos y estado local de PDFs: [`data/fuentes_hmm_asr_30.csv`](data/fuentes_hmm_asr_30.csv).
+
+Los PDFs completos se conservan como respaldo académico local y no se publican en GitHub.
 
 ## Evidencias de la práctica
 
