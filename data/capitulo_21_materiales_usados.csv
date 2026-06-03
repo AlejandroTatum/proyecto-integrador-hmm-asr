@@ -1,0 +1,13 @@
+tipo,nombre,ubicacion_repo,ubicacion_local_original,estado_publicacion,nota
+entregable,PDF final del capítulo,docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Final.pdf,/home/alejandro/Downloads/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Final.pdf,incluido,Versión final validada: 10 páginas de contenido y referencias desde página 11.
+entregable,Paquete Overleaf final,docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Overleaf.zip,/home/alejandro/Downloads/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Overleaf.zip,incluido,ZIP listo para cargar en Overleaf.
+fuente,main.tex,docs/capitulo_21_libro/overleaf_package/main.tex,/home/alejandro/Downloads/Capitulo_21_HMM_ASR_Corregido_IEEE/main.tex,incluido,Archivo principal LaTeX.
+fuente,capitulo_21.tex,docs/capitulo_21_libro/overleaf_package/capitulos/capitulo_21.tex,/home/alejandro/Downloads/Capitulo_21_HMM_ASR_Corregido_IEEE/capitulos/capitulo_21.tex,incluido,Contenido final del capítulo.
+fuente,referencias.bib,docs/capitulo_21_libro/overleaf_package/referencias.bib,/home/alejandro/Downloads/Capitulo_21_HMM_ASR_Corregido_IEEE/referencias.bib,incluido,Bibliografía IEEE usada por el paquete Overleaf.
+referencias,copia bibliográfica final,refs/capitulo_21_referencias_ieee.bib,/home/alejandro/Downloads/Capitulo_21_HMM_ASR_Corregido_IEEE/referencias.bib,incluido,Copia para trazabilidad bibliográfica dentro de refs/.
+evidencia,reporte de validación final,data/capitulo_21_validacion_final.json,generado en repo,incluido,Valida páginas, citas, DOI, signos de pregunta y compilación.
+evidencia,checksums finales,docs/capitulo_21_libro/CHECKSUMS.sha256,generado en repo,incluido,Huellas SHA-256 de entregables y fuentes.
+insumo,estructura del docente,docs/capitulo_21_libro/INSUMOS_USADOS.md,/home/alejandro/Downloads/Version_Libro_1-2.pdf,documentado_no_incluido,No se publica el PDF del docente; se registra como insumo local.
+insumo,PDF original del capítulo,docs/capitulo_21_libro/INSUMOS_USADOS.md,/home/alejandro/Downloads/Capitulo_21_HMM_ASR_Final_10Paginas_25Fuentes_IEEE.pdf,documentado_no_incluido,Se conserva localmente como versión base; el repo contiene solo la versión final.
+insumo,ZIP original Overleaf,docs/capitulo_21_libro/INSUMOS_USADOS.md,/home/alejandro/Downloads/Capitulo_21_HMM_ASR_Final_10Paginas_25Fuentes_IEEE_Overleaf.zip,documentado_no_incluido,Se conserva localmente como versión base; el repo contiene solo la versión final.
+insumo,infografía anti-IA y metadatos,docs/capitulo_21_libro/INSUMOS_USADOS.md,proporcionada por chat,documentado_no_incluido,Usada como criterio de revisión de escritura y referencias.

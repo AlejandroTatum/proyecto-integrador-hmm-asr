@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-06-03",
+  "chapter": "Capítulo 21 - Modelos Ocultos de Markov (HMM) y ASR",
+  "files": {
+    "pdf": "docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Final.pdf",
+    "overleaf_zip": "docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Overleaf.zip",
+    "overleaf_package": "docs/capitulo_21_libro/overleaf_package",
+    "bib_copy": "refs/capitulo_21_referencias_ieee.bib"
+  },
+  "sha256": {
+    "docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Final.pdf": "c9b3a1c2414314f860a0427c16fddb8389488c5a8714798d1b3f0acf0b573c6b",
+    "docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Overleaf.zip": "7885810263a6cb2471afa2eed7c072f970cecedbec71f3ddfbf99397de249560",
+    "docs/capitulo_21_libro/overleaf_package/main.tex": "e6c0c53f79c110f027e83ed1171eaf2180b8aed85978e3d42cb65d32bd294fe9",
+    "docs/capitulo_21_libro/overleaf_package/referencias.bib": "477febfddf990f2614c9873c2a3547609d56f1738d64df54ca9b9487fbe4d3a9",
+    "docs/capitulo_21_libro/overleaf_package/capitulos/capitulo_21.tex": "a4db353bd85a191f9d1f80729f84f61c998dc2a3ae509fe945437aa1dc593ad8",
+    "refs/capitulo_21_referencias_ieee.bib": "477febfddf990f2614c9873c2a3547609d56f1738d64df54ca9b9487fbe4d3a9"
+  },
+  "compile": {
+    "available": true,
+    "returncode": 0,
+    "ok_no_errors_no_overfull": true,
+    "log_tail": "note: \"version 2\" Tectonic command-line interface activated\nnote: Running TeX ...\nnote: Running BibTeX on main.aux ...\nnote: Rerunning TeX because bibtex was run ...\nnote: Rerunning TeX because \"main.aux\" changed ...\nnote: Running xdvipdfmx ...\nnote: Writing `main.pdf` (96.8916015625 KiB)\nnote: Skipped writing 3 intermediate files (use --keep-intermediates to keep them)\n\n",
+    "compiled_pages": 13
+  },
+  "zip": {
+    "contents": [
+      "capitulos/capitulo_21.tex",
+      "main.tex",
+      "referencias.bib"
+    ],
+    "matches_overleaf_package": {
+      "main.tex": true,
+      "referencias.bib": true,
+      "capitulos/capitulo_21.tex": true
+    }
+  },
+  "pdf": {
+    "pdfinfo": {
+      "Title": "Modelos Ocultos de Markov (HMM) y su Aplicación en el Reconocimiento Automático de la Voz",
+      "Subject": "Capítulo 21 - Fundamentos de Inteligencia Artificial Clásica",
+      "Keywords": "HMM, ASR, reconocimiento automático de voz, modelos ocultos de Markov",
+      "Author": "Alejandro Padilla Espinoza",
+      "Creator": "LaTeX with hyperref",
+      "Tagged": "no",
+      "Pages": "13",
+      "Page size": "595.28 x 841.89 pts (A4)"
+    },
+    "fonts_embedded_subset_unicode_all": true,
+    "total_pages": 13,
+    "references_start_page": 11,
+    "content_pages_before_references": 10,
+    "pound_sign_count": 0,
+    "inverted_question_mark_count": 5
+  },
+  "citations": {
+    "bib_entries": 25,
+    "unique_cites": 25,
+    "undefined_cites": [],
+    "uncited_bib_entries": [],
+    "rendered_reference_count": 25,
+    "rendered_reference_sequence_ok": true,
+    "rendered_doi_literal_count": 25,
+    "unique_doi_urls_in_pdf": 25,
+    "doi_urls": [
+      "https://doi.org/10.1006/csla.2002.0191",
+      "https://doi.org/10.1007/BF02111210",
+      "https://doi.org/10.1007/s00521-017-3028-2",
+      "https://doi.org/10.1007/s11042-026-21167-z",
+      "https://doi.org/10.1016/0167-6393(90)90025-5",
+      "https://doi.org/10.1016/j.procs.2019.04.138",
+      "https://doi.org/10.1080/00401706.1991.10484833",
+      "https://doi.org/10.1109/5.18626",
+      "https://doi.org/10.1109/89.242487",
+      "https://doi.org/10.1109/89.554264",
+      "https://doi.org/10.1109/ICASSP.2006.1660223",
+      "https://doi.org/10.1109/ICASSP.2012.6288870",
+      "https://doi.org/10.1109/ICASSP.2012.6288982",
+      "https://doi.org/10.1109/ICITBS49701.2020.00171",
+      "https://doi.org/10.1109/PACCS.2009.138",
+      "https://doi.org/10.1155/2014/270576",
+      "https://doi.org/10.12928/TELKOMNIKA.v16i5.7927",
+      "https://doi.org/10.15388/informatica.2004.048",
+      "https://doi.org/10.15388/informatica.2004.062",
+      "https://doi.org/10.17159/sajs.2017/20160038",
+      "https://doi.org/10.21437/ICSLP.1992-281",
+      "https://doi.org/10.3346/jkms.2019.34.e108",
+      "https://doi.org/10.34028/iajit/22/2/11",
+      "https://doi.org/10.3844/ajassp.2013.1148.1153",
+      "https://doi.org/10.7551/mitpress/7503.003.0161"
+    ]
+  },
+  "writing_checks": {
+    "ai_pattern_hits": {},
+    "bad_reference_text_hits": {
+      "Published online": 0,
+      "date of publication": 0,
+      "pp_73_005": 0,
+      "doi_doi": 0,
+      "iajit_wrong_hyphen": 0
+    }
+  },
+  "verdict": "Listo para entrega/publicación académica interna; solo requeriría ajustes si una editorial exige plantilla propia, Times New Roman exacto o PDF accesible etiquetado."
+}

@@ -1,0 +1,230 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPÍTULO 21: MODELOS OCULTOS DE MARKOV (HMM)
+% AUTOR: Alejandro Padilla Espinoza
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Modelos Ocultos de Markov (HMM) y su Aplicación en el Reconocimiento Automático de la Voz}
+\label{cap:capitulo_21}
+\chaptermark{Modelos Ocultos de Markov (HMM)}
+
+\noindent\textbf{Autor:} Alejandro Padilla Espinoza (alejandro.padilla@unl.edu.ec)\par
+\noindent\textbf{Técnica asignada:} Modelos Ocultos de Markov (HMM)\par
+
+
+\section{Introducción}
+El reconocimiento automático de voz, conocido como \emph{Automatic Speech Recognition} (ASR), convierte una señal acústica continua en una representación lingüística, como fonemas, palabras o texto. El problema no consiste en asociar audio limpio con palabras aisladas; exige inferir una secuencia no observada a partir de mediciones acústicas variables. La pronunciación cambia entre hablantes, velocidades, micrófonos y entornos, de modo que el sistema trabaja con evidencia parcial y ruidosa. En ese escenario, los modelos ocultos de Markov (HMM, por sus siglas en inglés) ofrecieron una formulación estadística adecuada para relacionar observaciones acústicas con estados lingüísticos no visibles \cite{Rabiner1989TutoriHidden,Juang1991HiddenMarkov}.
+
+El aporte técnico del HMM fue representar el habla como una secuencia probabilística. Cada observación acústica puede asociarse con un estado oculto, por ejemplo una unidad fonética, una subunidad de palabra o una posición dentro de un patrón de pronunciación. Esta estructura permitió estimar qué secuencia de estados explica mejor una serie de características extraídas del audio. En los primeros sistemas de reconocimiento continuo, como los desarrollados desde la perspectiva de CMU, los HMM se integraron con entrenamiento, modelos acústicos, búsqueda y evaluación, por lo que no fueron solo una definición matemática sino una pieza de arquitectura ASR \cite{Lee1990SpeechRecogn}.
+
+La importancia de los HMM se mantiene porque ayudan a leer la evolución del ASR desde los modelos estadísticos clásicos hasta los sistemas híbridos y neuronales. Las redes profundas han desplazado muchas implementaciones tradicionales, pero la noción de estado, transición, emisión y decodificación sigue siendo útil para distinguir qué parte del problema corresponde al modelado temporal y qué parte a la clasificación acústica \cite{Mustafa2019ComparReview}. Esta separación evita presentar el reconocimiento de voz como una caja única y permite analizar sus componentes técnicos.
+
+Una cadena ASR basada en HMM puede describirse como una decisión sobre secuencias. La entrada es una serie de vectores acústicos; la salida esperada es una hipótesis lingüística. Entre ambos extremos intervienen el modelo acústico, el diccionario de pronunciación y, cuando el sistema lo incorpora, un modelo de lenguaje. El HMM se ubica principalmente en el modelado acústico y temporal: asigna probabilidades a trayectorias de estados y permite que la búsqueda compare rutas alternativas. Esta ubicación técnica explica por qué los HMM fueron útiles tanto en sistemas de palabras aisladas como en reconocimiento continuo de vocabulario amplio \cite{Lee1990SpeechRecogn,ilingas2004SpecifHidden}.
+
+La voz exige ese tratamiento secuencial porque sus unidades no aparecen con límites perfectos. Un fonema puede variar por el contexto que lo precede y por el que lo sigue; una pausa puede ser parte de una palabra, una frontera sintáctica o una irregularidad del hablante; el ruido puede modificar la energía y el espectro sin cambiar la intención lingüística. Un clasificador que evaluara cada ventana acústica de manera aislada perdería información de orden. El HMM, aunque simplifica las dependencias, introduce una memoria local suficiente para modelar la progresión entre estados y para penalizar transiciones poco probables.
+
+La técnica también ocupa un lugar pedagógico dentro de la inteligencia artificial clásica. Permite estudiar inferencia, entrenamiento estadístico y decisión bajo incertidumbre en un mismo marco. En ASR, esa combinación se observa con claridad: el sistema no ve palabras, sino mediciones; no conoce la trayectoria de estados, sino que la estima; no entrega una certeza absoluta, sino una hipótesis con mayor probabilidad relativa. Esta lectura ayuda a distinguir entre reconocimiento como clasificación puntual y reconocimiento como inferencia temporal.
+
+Este trabajo aborda los HMM como una técnica de revisión y análisis, no como un experimento propio de entrenamiento o evaluación. La discusión se concentra en seis dimensiones: fundamentos probabilísticos, adaptación a vocabularios amplios, robustez frente a ruido, integración con redes neuronales, aplicaciones en contextos de bajo recurso o habla clínica y variantes avanzadas. La literatura revisada incluye trabajos de compensación de ruido \cite{Vaseghi1997NoiseCompen}, modelos de distribución compartida \cite{MeiYuhHwang1993SharedDistri}, estrategias para lenguas con pocos recursos \cite{DeWet2017SpeechRecogn} y sistemas híbridos DNN-HMM \cite{Shanthamallappa2026DeepNeural}.
+
+Con esa delimitación, el análisis conecta la matemática del HMM con decisiones reales de diseño en ASR. La revisión articula cómo se modela una señal secuencial, cómo se estiman hipótesis de reconocimiento y por qué el HMM siguió siendo relevante al combinarse con métodos más recientes.
+
+\section{Fundamentos Teóricos}
+Un modelo oculto de Markov representa un proceso secuencial en el que el sistema atraviesa estados no observables mientras produce observaciones medibles. En reconocimiento de voz, las observaciones suelen ser vectores de características acústicas extraídos de la señal hablada, mientras que los estados ocultos pueden asociarse con unidades fonéticas, subunidades acústicas o posiciones dentro de una palabra. La tarea del modelo consiste en estimar qué secuencia de estados ocultos explica mejor la secuencia de observaciones recibida \cite{Rabiner1989TutoriHidden}.
+
+Formalmente, un HMM se define mediante tres grupos de parámetros: la distribución inicial de estados $\pi$, las probabilidades de transición $A$ y las probabilidades de emisión $B$. Si se considera una secuencia de observaciones $O=(o_1,o_2,\ldots,o_T)$ y una secuencia de estados ocultos $Q=(q_1,q_2,\ldots,q_T)$, la probabilidad conjunta puede expresarse como se muestra en la Ecuación \ref{eq:hmm}:
+
+\begin{equation}
+P(O,Q \mid \lambda)=\pi_{q_1}b_{q_1}(o_1)
+\prod_{t=2}^{T}a_{q_{t-1}q_t}b_{q_t}(o_t),
+\label{eq:hmm}
+\end{equation}
+
+donde $\lambda=(A,B,\pi)$ representa el conjunto de parámetros del modelo. La distribución inicial indica la probabilidad de comenzar en cada estado; las transiciones describen cómo cambia el sistema de un estado a otro; y las emisiones asignan probabilidad a una observación acústica condicionada al estado. En ASR, esta formulación permite comparar hipótesis de pronunciación y seleccionar la secuencia lingüística más probable \cite{Rabiner1989TutoriHidden,Juang1991HiddenMarkov}.
+
+Los HMM se estudian a partir de tres problemas clásicos. El primero es la evaluación: calcular la probabilidad de una secuencia de observaciones bajo un modelo dado. El segundo es la decodificación: encontrar la secuencia de estados más probable que generó las observaciones; en la práctica, esta búsqueda suele implementarse con el algoritmo de Viterbi. El tercero es el aprendizaje: ajustar los parámetros del modelo con datos de entrenamiento. En reconocimiento de voz, esos tres problemas se traducen en estimar qué tan bien un modelo acústico explica una señal, decidir la secuencia fonética o lingüística asociada al audio y entrenar el sistema con corpus de habla \cite{Rabiner1989TutoriHidden}.
+
+En ASR, la decodificación suele formularse como una búsqueda sobre palabras o unidades lingüísticas. Si $W$ representa una hipótesis de palabras y $O$ la secuencia de observaciones acústicas, la decisión puede expresarse mediante la Ecuación \ref{eq:asr_decision}:
+
+\begin{equation}
+\hat{W}=\arg\max_W P(W \mid O) \approx \arg\max_W P(O \mid W)P(W),
+\label{eq:asr_decision}
+\end{equation}
+
+donde $P(O \mid W)$ corresponde al componente acústico y $P(W)$ incorpora restricciones lingüísticas cuando existe un modelo de lenguaje. El HMM participa en la estimación de $P(O \mid W)$ al asociar una hipótesis de pronunciación con una secuencia de estados. La aproximación de la Ecuación \ref{eq:asr_decision} separa el problema en partes entrenables y hace posible combinar acústica, pronunciación y probabilidad lingüística dentro de un decodificador.
+
+La topología más habitual en reconocimiento de voz fue la de izquierda a derecha. En esa configuración, los estados avanzan en una dirección y permiten auto-transiciones para representar duraciones variables. Esta propiedad se ajusta bien al habla: una unidad acústica tiene inicio, desarrollo y salida, pero su duración cambia entre hablantes y contextos. Las auto-transiciones permiten que el sistema permanezca más tiempo en un estado cuando la señal lo requiere; las transiciones hacia adelante representan el avance temporal de la pronunciación.
+
+El entrenamiento de un HMM acústico depende de datos alineados o parcialmente alineados. En escenarios supervisados, las transcripciones permiten asociar segmentos de señal con unidades lingüísticas. En escenarios menos controlados, el algoritmo de Baum-Welch ajusta parámetros a partir de alineamientos latentes. La calidad del entrenamiento depende de la cobertura del corpus: hablantes, ruido, micrófonos, acentos y vocabulario. Cuando el corpus no cubre esas condiciones, el modelo aprende probabilidades que describen bien el entrenamiento, pero no necesariamente el uso real.
+
+Dentro de una cadena ASR, la señal se segmenta en ventanas temporales cortas y se transforma en características numéricas. Esas características no son palabras; son descriptores acústicos que el sistema usa para diferenciar patrones de pronunciación. Después, el HMM evalúa la probabilidad de distintas secuencias de estados y un procedimiento de búsqueda selecciona la hipótesis de reconocimiento. Esta integración de modelado acústico, pronunciación y búsqueda fue clave en sistemas tempranos de reconocimiento continuo \cite{Lee1990SpeechRecogn}.
+
+La extracción de características condiciona el rendimiento del HMM. El modelo no opera sobre la onda cruda en su formulación clásica, sino sobre vectores que resumen información espectral y temporal. Métodos como LPC, MFCC o HFCC transforman la señal para resaltar propiedades relacionadas con la producción del habla. La comparación realizada para habla sundanesa ilustra esta dependencia: distintas características modifican la capacidad del HMM para separar patrones acústicos \cite{Yulita2018FeaturExtrac}. La elección de características, por tanto, no es un paso neutro; define qué información llega al modelo.
+
+Las emisiones del HMM pueden modelarse con distribuciones discretas, gaussianas o mezclas gaussianas. En ASR clásico, las mezclas gaussianas permitieron representar variabilidad acústica dentro de un mismo estado. Sin embargo, esa representación asumía independencia condicional de observaciones y requería suficientes datos para estimar parámetros estables. Las variantes con distribuciones compartidas y mezclas estructuradas respondieron a ese problema: buscaron reutilizar evidencia estadística y mejorar la robustez sin abandonar el marco secuencial \cite{MeiYuhHwang1993SharedDistri,Zhao2012StrandGaussi}.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{0.95}
+\caption{Relación entre componentes de ASR y función del HMM.}
+\label{tab:hmm_componentes}
+\begin{tabular}{L{0.23\textwidth}L{0.31\textwidth}L{0.34\textwidth}}
+\toprule
+\textbf{Componente} & \textbf{Función técnica} & \textbf{Riesgo si se modela mal} \\
+\midrule
+Características acústicas & Resumen numérico de la señal de voz. & Pérdida de información relevante para separar sonidos similares. \\
+Estados ocultos & Representación latente de unidades fonéticas o subunidades. & Alineamientos imprecisos entre audio y pronunciación. \\
+Transiciones & Control del orden y la duración relativa de los estados. & Secuencias poco naturales o duraciones acústicas mal estimadas. \\
+Emisiones & Probabilidad de observar un vector acústico dado un estado. & Sensibilidad a ruido, acento, micrófono o corpus insuficiente. \\
+Decodificación & Selección de la hipótesis con mayor probabilidad. & Elección de rutas locales correctas pero hipótesis globales erróneas. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La Tabla \ref{tab:hmm_componentes} resume la relación entre los componentes de una cadena ASR y las responsabilidades del HMM. El valor del modelo no está en resolver todos los niveles por separado, sino en proporcionar una interfaz probabilística entre ellos. Esa interfaz permite que un cambio en características, entrenamiento o búsqueda tenga un efecto medible sobre la hipótesis final.
+
+El supuesto de Markov simplifica la dependencia temporal al considerar que el estado actual depende principalmente del estado anterior. La simplificación no captura toda la complejidad del habla, en especial coarticulación, dependencias de largo alcance o variaciones prosódicas. Su utilidad reside en que produce modelos entrenables, interpretables y compatibles con datos reales. Por esa razón, los HMM fueron una base práctica antes de la expansión de arquitecturas neuronales de mayor escala.
+
+La investigación posterior intentó compensar límites específicos del modelo. Los modelos de distribución compartida reutilizaron información estadística entre estados para mejorar eficiencia y reducir problemas de escasez de datos \cite{MeiYuhHwang1993SharedDistri}. En tareas de vocabulario amplio se propusieron modificaciones orientadas al reconocimiento continuo, donde aumenta el número de palabras y combinaciones posibles \cite{ilingas2004SpecifHidden}. También aparecieron criterios de entrenamiento discriminativo, como los HMM de margen amplio, para separar mejor hipótesis correctas e incorrectas \cite{Sha2007LargeMargin}.
+
+Las condiciones acústicas adversas muestran otra limitación relevante. Si la señal se degrada por ruido, reverberación o distancia del micrófono, las probabilidades de emisión pueden dejar de representar el patrón esperado \cite{Vaseghi1997NoiseCompen,Matassoni2002HiddenMarkov}. Los trabajos de robustez no reemplazaron simplemente al HMM; lo reforzaron mediante compensación de ruido, entrenamiento con habla contaminada, adaptación en línea, mezclas gaussianas estructuradas y filtros de partículas.
+
+La interpretabilidad es una ventaja técnica del HMM. A diferencia de modelos profundos menos transparentes, sus componentes pueden describirse de forma directa: estados, transiciones, emisiones, observaciones y secuencias estimadas. Esa claridad permite analizar errores, ajustar supuestos y explicar por qué una hipótesis recibe mayor probabilidad que otra. Comprender HMM ayuda, por tanto, a identificar qué aporta cada componente en la evolución de los sistemas ASR.
+
+\section{Metodología y Análisis de la Literatura}
+La revisión se planteó como un análisis narrativo técnico de literatura sobre HMM y ASR. El corpus final quedó conformado por veinticinco fuentes con metadatos verificables mediante DOI o página editorial. La selección priorizó artículos de revista y ponencias que usaran HMM como componente central, que aportaran a reconocimiento de voz o que permitieran explicar la transición hacia sistemas híbridos. Se dejaron fuera fuentes periféricas cuando no trataban ASR, no incorporaban HMM de forma sustantiva o repetían una contribución ya cubierta por trabajos más específicos.
+
+La normalización bibliográfica se revisó con el mismo criterio para todas las fuentes. En artículos de revista se verificaron autores, título, revista, volumen, número, páginas o número de artículo, mes, año y DOI. En ponencias se verificaron autores, título, nombre del congreso, ciudad, país, rango de fechas, páginas y DOI. Las fuentes sin DOI visible en el texto final se mantuvieron solo cuando el registro editorial permitía comprobar los metadatos. Este control evita que la bibliografía funcione como una lista incompleta y la convierte en evidencia trazable para el lector.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{0.92}
+\caption{Criterios de validación bibliográfica aplicados al capítulo.}
+\label{tab:criterios_biblio}
+\begin{tabular}{L{0.22\textwidth}L{0.33\textwidth}L{0.33\textwidth}}
+\toprule
+\textbf{Tipo de fuente} & \textbf{Metadatos revisados} & \textbf{Uso dentro del capítulo} \\
+\midrule
+Artículo de revista & Autores, título, revista, volumen, número, páginas o artículo, mes, año y DOI. & Fundamentos, robustez, bajo recurso, aplicaciones clínicas y variantes avanzadas. \\
+Ponencia de congreso & Autores, título, congreso, ciudad, país, fecha, páginas y DOI. & Sistemas tempranos, adaptación, compensación y enfoques híbridos. \\
+Capítulo o colección & Autores, título del capítulo, obra contenedora, editorial, año, páginas y DOI. & Entrenamiento discriminativo mediante HMM de margen amplio. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La clasificación temática no se basó únicamente en la fecha de publicación. Una fuente clásica puede sostener un concepto que todavía organiza la discusión técnica; una fuente reciente puede mostrar continuidad de uso en un dominio específico sin desplazar la base teórica. Esta distinción es necesaria para HMM-ASR porque el área combina artículos fundacionales, optimizaciones de ingeniería y aplicaciones lingüísticas o clínicas.
+
+El análisis se organizó en seis grupos. El primero reúne los fundamentos matemáticos y arquitectónicos. Rabiner presenta la formulación general del HMM y sus problemas de evaluación, decodificación y aprendizaje; Juang y Rabiner ubican esa formulación dentro del reconocimiento de voz \cite{Rabiner1989TutoriHidden,Juang1991HiddenMarkov}. La perspectiva de CMU muestra la aplicación de HMM en sistemas de reconocimiento continuo con entrenamiento, búsqueda y modelos acústicos \cite{Lee1990SpeechRecogn}. Los modelos de distribución compartida complementan esa base al tratar la reutilización de información estadística entre estados \cite{MeiYuhHwang1993SharedDistri}.
+
+El segundo grupo aborda escala y entrenamiento. Las modificaciones para vocabulario amplio responden a la dificultad de reconocer secuencias largas en dominios con muchas palabras posibles \cite{ilingas2004SpecifHidden}. Los HMM de margen amplio introducen un criterio discriminativo para mejorar la separación entre hipótesis de reconocimiento \cite{Sha2007LargeMargin}. Estas fuentes muestran que el HMM clásico necesitó ajustes para operar en tareas ASR más exigentes.
+
+El tercer grupo trata robustez acústica. Vaseghi y Milner estudian compensación de ruido en ambientes adversos \cite{Vaseghi1997NoiseCompen}. Matassoni y colaboradores analizan entrenamiento con material contaminado para reconocimiento a distancia \cite{Matassoni2002HiddenMarkov}. Huo, Zhu y Wu proponen adaptación no supervisada en línea para modelos segmentales de tipo HMM \cite{QiangHuo2006UnsupeOnline}. Zhao y Juang exploran mezclas gaussianas estructuradas para robustez \cite{Zhao2012StrandGaussi}, y Mushtaq y Hui-Lee combinan filtros de partículas con HMM para compensación de características \cite{Mushtaq2012IntegrApproa}. La robustez, en este corpus, aparece como un problema de señal, características, parámetros y adaptación.
+
+En robustez acústica, las fuentes permiten separar tres niveles de intervención. El primero trabaja sobre la señal o las características, por ejemplo mediante compensación de ruido o filtros de partículas \cite{Vaseghi1997NoiseCompen,Mushtaq2012IntegrApproa}. El segundo modifica el entrenamiento para acercar el corpus a condiciones de uso, como ocurre con habla contaminada \cite{Matassoni2002HiddenMarkov}. El tercero adapta parámetros cuando cambia el entorno, línea representada por adaptación no supervisada y mezclas gaussianas estructuradas \cite{QiangHuo2006UnsupeOnline,Zhao2012StrandGaussi}. Esta separación ayuda a leer la robustez como un conjunto de decisiones de diseño, no como un único método.
+
+En sistemas híbridos, la función del HMM se entiende mejor al distinguir clasificación y secuencia. Las redes neuronales pueden estimar clases acústicas o transformar representaciones; el HMM organiza la evolución temporal y restringe el orden de los estados. Tang describe esta relación entre ANN y HMM en reconocimiento automático de voz \cite{Tang2009HybridHidden}. Los trabajos con redes de base radial, CNN y DNN conservan esa lógica de reparto funcional, aunque cambie el tipo de red usada \cite{Justin2013HybridSpeech,Chen2020ResearImprov,Shanthamallappa2026DeepNeural}.
+
+Las aplicaciones en lenguas con pocos recursos introducen una restricción distinta: la falta de corpus extensos. En ese escenario, el HMM conserva utilidad porque puede entrenarse con cantidades moderadas de datos y porque permite inspeccionar estados, transiciones y errores. La compartición de datos entre lenguas relacionadas y los sistemas de vocabulario limitado responden a esa restricción \cite{DeWet2017SpeechRecogn,Alume2004LimiteVocabu}. Los trabajos sobre dialecto marroquí, habla sundanesa y disartria amplían el análisis hacia dominios donde el objetivo no siempre es competir con un sistema masivo, sino adaptar el reconocimiento a una población, lengua o tarea clínica concreta \cite{Mouaz2019SpeechRecogn,Yulita2018FeaturExtrac,Lee2019AssessDysart}.
+
+Las variantes avanzadas muestran una línea común: modificar el entrenamiento, la búsqueda o la representación sin perder la estructura secuencial. El margen amplio introduce presión discriminativa sobre hipótesis competidoras \cite{Sha2007LargeMargin}. La optimización por enjambre de partículas explora ajustes de parámetros \cite{Selvaraj2014EnhancSpeech}. El enfoque difuso con mapas autoorganizados trata incertidumbre y organización de características \cite{Zhang2025FuzzySpeech}. Estas propuestas no convierten al HMM en una técnica única para todo ASR; lo presentan como una base sobre la cual se insertan mecanismos de mejora.
+
+El cuarto grupo corresponde a sistemas híbridos. Cohen y colaboradores representan una integración temprana entre red neuronal y HMM para reconocimiento continuo \cite{Cohen1992HybridNeural}. Kundu y Bayya, Tang, Justin y Vennila, y Chen, Liu y Zhang muestran variantes donde redes neuronales, ANN, RBF o CNN aportan clasificación acústica mientras el HMM conserva la estructura temporal \cite{Kundu1998SpeechRecogn,Tang2009HybridHidden,Justin2013HybridSpeech,Chen2020ResearImprov}. Shanthamallappa y colaboradores actualizan esa línea con un sistema DNN-HMM aplicado a proverbios en Kannada \cite{Shanthamallappa2026DeepNeural}. La evolución híbrida no implica una sustitución inmediata del HMM, sino una redistribución de funciones entre modelado secuencial y discriminación acústica.
+
+El quinto grupo cubre bajo recurso y aplicaciones específicas. De Wet y colaboradores analizan compartición de datos entre lenguas relacionadas para sistemas HMM en contextos con pocos recursos \cite{DeWet2017SpeechRecogn}. Alumäe y Võhandu presentan reconocimiento continuo de vocabulario limitado para estonio \cite{Alume2004LimiteVocabu}. Mouaz, Beni Hssane y Elmoutaouakkil trabajan reconocimiento del dialecto marroquí \cite{Mouaz2019SpeechRecogn}. Yulita y colaboradores comparan métodos de extracción de características para habla sundanesa \cite{Yulita2018FeaturExtrac}, y Lee y colaboradores aplican HMM a evaluación de disartria mediante reconocimiento de palabras \cite{Lee2019AssessDysart}. Estos trabajos desplazan el foco desde la precisión general hacia adaptación lingüística, disponibilidad de datos y finalidad clínica.
+
+El sexto grupo incluye variantes avanzadas y comparación con enfoques recientes. Mustafa, Allen y Appiah comparan HMM con redes neuronales dinámicas para reconocimiento móvil en dispositivo \cite{Mustafa2019ComparReview}. Selvaraj y Ganesan integran optimización por enjambre de partículas al reconocimiento basado en HMM \cite{Selvaraj2014EnhancSpeech}. Zhang, Ma y Li combinan HMM de densidad continua con mapas autoorganizados y procesamiento difuso \cite{Zhang2025FuzzySpeech}. Estas variantes reflejan intentos de mejorar entrenamiento, representación de características o desempeño bajo restricciones de uso.
+
+La revisión de documentos completos permitió relacionar cada fuente con un problema técnico concreto. En fundamentos, los textos clásicos justifican estados ocultos, emisiones, transiciones y decodificación. En robustez, las fuentes tratan ruido, contaminación acústica, distancia de captura y compensación de características. En híbridos, la literatura separa la clasificación acústica del modelado temporal. En bajo recurso y habla clínica, el HMM conserva interés porque puede ajustarse a corpus reducidos, variantes lingüísticas o tareas de evaluación específicas. Esta clasificación organiza la discusión de la Tabla \ref{tab:hmm_sintesis}.
+
+
+Para comparar las fuentes no basta con registrar si usan HMM. El análisis requiere observar qué parte de la cadena ASR modifican y qué restricción intentan resolver. Un trabajo puede actuar sobre la representación acústica, otro sobre el entrenamiento, otro sobre la búsqueda y otro sobre la adaptación a una lengua específica. Si todas las fuentes se leen como equivalentes, se pierde la diferencia entre fundamento matemático, mejora de ingeniería y aplicación de dominio.
+
+El criterio de unidad modelada separa trabajos orientados a fonemas, palabras aisladas, vocabularios limitados, vocabularios amplios o frases espontáneas. Esta diferencia afecta la complejidad del decodificador. Reconocer palabras aisladas reduce el espacio de búsqueda; reconocer habla continua exige controlar fronteras, pronunciaciones alternativas y secuencias largas. Los trabajos de vocabulario amplio y reconocimiento continuo se ubican en el extremo más exigente de esa escala \cite{Lee1990SpeechRecogn,ilingas2004SpecifHidden}.
+
+El criterio de condición acústica distingue habla limpia, habla distante, ruido ambiental, variación de micrófono y habla alterada por condiciones clínicas. Las fuentes de robustez se concentran en degradaciones de la señal \cite{Vaseghi1997NoiseCompen,Matassoni2002HiddenMarkov}; las fuentes clínicas tratan diferencias en la producción del habla \cite{Lee2019AssessDysart}. En ambos casos el HMM enfrenta observaciones que se alejan de los patrones entrenados, pero la causa del desajuste no es la misma. Esta diferencia modifica la estrategia de corrección: compensar ruido no equivale a modelar disartria.
+
+El criterio de disponibilidad de datos separa sistemas entrenados con corpus suficientes de sistemas que deben operar con recursos limitados. Las lenguas con pocos recursos y los dialectos reducen la posibilidad de entrenar modelos extensos sin estrategias de adaptación o compartición. Los trabajos sobre afrikáans/flamenco, estonio, dialecto marroquí y habla sundanesa se leen mejor desde esa restricción \cite{DeWet2017SpeechRecogn,Alume2004LimiteVocabu,Mouaz2019SpeechRecogn,Yulita2018FeaturExtrac}. En esos escenarios, la interpretabilidad y la capacidad de ajustar un modelo relativamente compacto adquieren más peso.
+
+El criterio de hibridación identifica cómo se reparte el trabajo entre HMM y redes neuronales. En un sistema híbrido, la red puede estimar probabilidades o clasificaciones acústicas, mientras que el HMM impone estructura secuencial. Esta división aparece en propuestas ANN-HMM, HMM/NN, RBF-HMM, CNN-HMM y DNN-HMM \cite{Cohen1992HybridNeural,Kundu1998SpeechRecogn,Tang2009HybridHidden,Justin2013HybridSpeech,Chen2020ResearImprov,Shanthamallappa2026DeepNeural}. La comparación no debe reducirse a qué componente es más moderno; debe indicar qué función cumple cada uno dentro del sistema.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{0.92}
+\caption{Criterios usados para comparar las fuentes HMM-ASR.}
+\label{tab:criterios_analisis}
+\begin{tabular}{L{0.20\textwidth}L{0.33\textwidth}L{0.35\textwidth}}
+\toprule
+\textbf{Criterio} & \textbf{Pregunta de análisis} & \textbf{Lectura aplicada al corpus} \\
+\midrule
+Unidad modelada & \textquestiondown{}El sistema reconoce unidades aisladas, vocabulario limitado, vocabulario amplio o habla continua? & A mayor continuidad y vocabulario, mayor presión sobre decodificación y búsqueda. \\
+Condición acústica & \textquestiondown{}La señal es limpia, ruidosa, distante, dialectal o clínica? & El error puede provenir de ruido, canal, hablante, lengua o alteración del habla. \\
+Disponibilidad de datos & \textquestiondown{}El corpus permite estimar parámetros estables? & La escasez favorece compartición de datos, modelos compactos y adaptación. \\
+Tipo de mejora & \textquestiondown{}La fuente modifica características, entrenamiento, emisiones, búsqueda o arquitectura? & Las mejoras no son intercambiables; actúan en puntos distintos de la cadena ASR. \\
+Hibridación & \textquestiondown{}Qué componente queda a cargo de la clasificación y cuál del orden temporal? & Las redes refuerzan discriminación; el HMM conserva estructura secuencial. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Estos criterios también ayudan a evitar una lectura cronológica demasiado simple. Un artículo de 1989 puede sostener la definición que permite entender una propuesta híbrida posterior. Una fuente de 2026 puede usar DNN-HMM en una aplicación lingüística concreta sin invalidar los fundamentos previos. La revisión, entonces, no organiza la literatura como una sucesión de reemplazos, sino como una red de problemas técnicos: secuencia, ruido, datos, representación, discriminación y adaptación.
+
+La relación entre teoría y aplicación aparece con más claridad cuando se observa el tipo de evidencia que aporta cada fuente. Las fuentes fundacionales explican el modelo; las de robustez prueban qué falla cuando la señal cambia; las híbridas distribuyen tareas entre clasificadores y estructura temporal; las de bajo recurso muestran restricciones de corpus; las variantes avanzadas modifican entrenamiento o representación. Esta lectura mantiene el capítulo dentro de una revisión técnica y evita convertir la bibliografía en una enumeración de trabajos sin jerarquía analítica.
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{0.92}
+\caption{Síntesis de ejes de análisis en la literatura HMM-ASR.}
+\label{tab:hmm_sintesis}
+\begin{tabular}{L{0.21\textwidth}L{0.25\textwidth}L{0.36\textwidth}}
+\toprule
+\textbf{Eje} & \textbf{Fuentes} & \textbf{Aporte al capítulo} \\
+\midrule
+Fundamentos HMM-ASR & \cite{Rabiner1989TutoriHidden,Juang1991HiddenMarkov}, \cite{Lee1990SpeechRecogn}, \cite{MeiYuhHwang1993SharedDistri} & Base probabilística, modelado temporal e integración en sistemas reales de reconocimiento de voz. \\
+Escala y entrenamiento & \cite{ilingas2004SpecifHidden,Sha2007LargeMargin} & Ajustes para vocabulario amplio y criterios de entrenamiento más discriminativos. \\
+Robustez acústica & \cite{Vaseghi1997NoiseCompen,Matassoni2002HiddenMarkov,QiangHuo2006UnsupeOnline,Zhao2012StrandGaussi,Mushtaq2012IntegrApproa} & Ruido, habla contaminada, adaptación, mezclas gaussianas y compensación de características. \\
+Modelos híbridos & \cite{Cohen1992HybridNeural,Kundu1998SpeechRecogn,Tang2009HybridHidden,Justin2013HybridSpeech,Chen2020ResearImprov,Shanthamallappa2026DeepNeural} & Transición desde HMM clásicos hacia combinaciones con redes neuronales, CNN y DNN. \\
+Bajo recurso y aplicaciones & \cite{DeWet2017SpeechRecogn,Alume2004LimiteVocabu,Mouaz2019SpeechRecogn,Yulita2018FeaturExtrac,Lee2019AssessDysart} & Lenguas con pocos recursos, dialectos, análisis de características y habla clínica. \\
+Variantes avanzadas y comparación & \cite{Mustafa2019ComparReview,Sha2007LargeMargin,Selvaraj2014EnhancSpeech,Zhang2025FuzzySpeech} & Optimización, modelos difusos, entrenamiento discriminativo y comparación con métodos neuronales modernos. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La Tabla \ref{tab:hmm_sintesis} resume los ejes principales de la revisión. Las fuentes no cumplen una función homogénea. Algunas sostienen la explicación matemática del modelo; otras muestran cómo se adaptó el HMM a vocabularios amplios, ruido, aplicaciones lingüísticas específicas o arquitecturas híbridas. Esta organización permite leer el capítulo como una evolución técnica: primero se establece la base probabilística, luego se reconocen sus límites, después se revisan las estrategias de mejora y se ubica el HMM dentro de sistemas más modernos. El análisis evita reducir el tema a una fórmula aislada y lo ubica como una técnica presente en varias etapas de la historia del ASR.
+
+Un resultado transversal de la revisión es que el HMM actúa como punto de unión entre tres decisiones: qué se observa, qué se supone oculto y cómo se decide una secuencia. En trabajos centrados en características, la pregunta principal es si los vectores acústicos contienen información suficiente para distinguir unidades de habla. En trabajos centrados en robustez, la pregunta cambia hacia la estabilidad de esas observaciones bajo ruido o distancia. En trabajos híbridos, la atención se desplaza hacia la forma de combinar clasificadores más flexibles con una estructura temporal explícita.
+
+Esa lectura también permite ubicar las limitaciones del modelo sin exagerarlas. El HMM no representa dependencias largas con la misma naturalidad que arquitecturas recurrentes o modelos de atención; tampoco aprende representaciones acústicas desde datos crudos en su formulación clásica. Aun así, entrega una descomposición clara del problema: estados, transiciones, emisiones, entrenamiento y decodificación. Esa descomposición facilita comparar sistemas antiguos y modernos con un vocabulario técnico común.
+
+Las aplicaciones revisadas muestran que la utilidad de una técnica no se evalúa solo por precisión global. En una lengua con pocos recursos, puede ser preferible un modelo ajustable y comprensible antes que una arquitectura que requiera grandes corpus. En una tarea clínica, la trazabilidad de errores puede tener valor adicional porque el resultado se relaciona con evaluación del habla. En un dispositivo móvil, el costo computacional y la latencia pueden pesar tanto como la tasa de acierto. Bajo esas condiciones, el HMM conserva interés como referencia de diseño y como punto de comparación.
+
+La síntesis del corpus deja una pauta para leer HMM-ASR en cursos de inteligencia artificial clásica: primero se estudia la inferencia secuencial; luego se observan las condiciones reales que degradan la señal; después se revisan mecanismos de adaptación e hibridación. Ese orden conecta teoría, ingeniería y aplicación sin convertir el capítulo en una historia lineal de sustituciones. El HMM no aparece como técnica aislada, sino como una forma de organizar decisiones probabilísticas dentro de sistemas de reconocimiento de voz.
+
+
+\section{Conclusiones}
+Los modelos ocultos de Markov siguen siendo una base necesaria para comprender el desarrollo del reconocimiento automático de voz. Su valor técnico está en representar una señal temporal mediante estados ocultos, observaciones acústicas, transiciones y emisiones. Esa estructura permitió formular el ASR como un problema probabilístico de secuencias y facilitó la integración entre modelado acústico, pronunciación y búsqueda.
+
+Las limitaciones del HMM clásico explican buena parte de la investigación posterior. El supuesto de Markov reduce dependencias temporales complejas; las emisiones dependen de características acústicas bien diseñadas; y el rendimiento cae cuando cambian las condiciones de ruido, micrófono, hablante o dominio. La literatura revisada respondió a esos límites con compensación acústica, entrenamiento con datos contaminados, adaptación en línea, mezclas gaussianas, filtros de partículas y criterios discriminativos.
+
+La transición hacia modelos híbridos muestra que el HMM no desapareció de forma abrupta. Las redes neuronales aportaron mayor capacidad de clasificación, mientras que el HMM conservó una función estructural en la organización temporal de la secuencia hablada. Esta combinación permite entender el paso desde sistemas estadísticos clásicos hacia arquitecturas profundas sin reducir la historia del ASR a una sustitución lineal de técnicas.
+
+Estudiar HMM aporta dos beneficios. En el plano formativo, aclara conceptos centrales como estado oculto, observación, transición, emisión, aprendizaje y decodificación. En el plano analítico, permite comparar soluciones ASR según robustez, eficiencia, disponibilidad de datos, interpretabilidad y capacidad de adaptación. Por esa razón, los HMM mantienen valor como herramienta conceptual y como referencia histórica para analizar sistemas modernos de reconocimiento de voz.
+
+La revisión también permite distinguir el valor histórico del valor operativo. El valor histórico está en la consolidación de una arquitectura probabilística que hizo viable el reconocimiento continuo durante varias décadas. El valor operativo aparece en dominios donde la interpretabilidad, la disponibilidad limitada de datos o la integración con clasificadores externos siguen siendo criterios de diseño. Esta doble lectura evita tratar el HMM como una tecnología cerrada y lo ubica como una herramienta que todavía ayuda a razonar sobre secuencias.
+
+La principal precaución metodológica es no atribuir al HMM capacidades que dependen de otros componentes. La precisión final de un sistema ASR depende de características, corpus, diccionario, búsqueda, modelo de lenguaje y condiciones acústicas. El HMM organiza una parte del problema, pero no corrige por sí solo datos pobres, ruido no representado o unidades lingüísticas mal definidas. Esa delimitación es necesaria para evaluar con rigor los sistemas clásicos, híbridos y modernos.
+
+
+Desde la metodología de revisión, el capítulo deja una precaución adicional: no todas las citas tienen el mismo peso argumentativo. Las fuentes de Rabiner, Juang y la perspectiva de CMU sostienen la base conceptual; las fuentes de robustez explican ajustes frente a degradaciones acústicas; las fuentes híbridas justifican la relación entre redes neuronales y estructura temporal; las fuentes de bajo recurso y clínicas delimitan escenarios de aplicación. Esta jerarquía evita usar referencias recientes solo por su fecha y permite conservar fuentes clásicas cuando siguen siendo necesarias para explicar el modelo.
+
+La validación bibliográfica acompaña esa jerarquía. Cada referencia conserva metadatos mínimos para que el lector pueda rastrear el documento: autores, título, medio de publicación, volumen o evento, páginas, fecha y DOI cuando corresponde. En artículos con número de artículo, ese dato se registra para no confundirlo con un rango de páginas. En ponencias, la ciudad, el país y las fechas del congreso ayudan a diferenciar el evento del año de publicación. Estos detalles son editoriales, pero también metodológicos: una revisión técnica pierde fuerza si sus fuentes no pueden localizarse con precisión.
+
+La lectura comparativa también aclara qué no debe prometer el capítulo. No se propone un sistema ASR nuevo ni se comparan métricas experimentales bajo un mismo corpus; se organiza literatura para explicar una técnica asignada. Esa delimitación evita mezclar revisión conceptual con evaluación experimental. El aporte queda en mostrar cómo el HMM articula inferencia secuencial, entrenamiento y búsqueda, y cómo esa articulación fue modificada por ruido, bajo recurso, habla clínica e hibridación con redes neuronales.
+
+Para el lector del libro, la consecuencia práctica es una ruta de análisis: identificar la unidad que modela el sistema, reconocer qué componente estima emisiones, revisar cómo se entrenan los parámetros y observar qué mecanismo decide la hipótesis final. Con esa ruta, las fuentes citadas dejan de ser una lista cronológica y pasan a funcionar como evidencia de problemas técnicos concretos. Ese cierre mantiene el foco en HMM-ASR y evita extender la discusión hacia áreas de reconocimiento de voz que no dependen directamente del modelo oculto de Markov.
+
+El capítulo puede leerse, por tanto, como una síntesis de técnica y evidencia. La técnica explica cómo el HMM representa secuencias; la evidencia muestra dónde se aplicó, qué límites encontró y qué variantes surgieron. Esa combinación responde mejor al formato de capítulo de libro que una descripción breve del algoritmo. El objetivo no es agotar todo ASR, sino dejar una base suficiente para entender por qué los HMM ocuparon un lugar central y cómo se relacionan con sistemas posteriores.

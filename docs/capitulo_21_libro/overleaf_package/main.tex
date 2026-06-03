@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% VISTA PREVIA DEL APORTE INDIVIDUAL AL LIBRO
+% CAPÍTULO 21: MODELOS OCULTOS DE MARKOV (HMM)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,oneside]{book}
+
+% --- Paquetes básicos e idioma (alineado con la estructura del libro docente) ---
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% --- Paquetes científicos estándar ---
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{xurl}
+\usepackage[hidelinks,breaklinks=true]{hyperref}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\addto\captionsspanish{
+  \renewcommand{\bibname}{Referencias bibliográficas}
+}
+
+\hypersetup{
+  pdftitle={Modelos Ocultos de Markov (HMM) y su Aplicación en el Reconocimiento Automático de la Voz},
+  pdfauthor={Alejandro Padilla Espinoza},
+  pdfsubject={Capítulo 21 - Fundamentos de Inteligencia Artificial Clásica},
+  pdfkeywords={HMM, ASR, reconocimiento automático de voz, modelos ocultos de Markov}
+}
+
+\begin{document}
+
+% El contador conserva el número asignado en la organización del libro.
+\setcounter{chapter}{20}
+\input{capitulos/capitulo_21}
+
+\backmatter
+\bibliographystyle{IEEEtran}
+\bibliography{referencias}
+
+\end{document}

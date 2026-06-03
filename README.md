@@ -34,12 +34,25 @@ Analizar el uso de los modelos ocultos de Markov (HMM) y sus enfoques derivados 
 El archivo editable principal es [`docs/proyecto_integrador_hmm_asr.tex`](docs/proyecto_integrador_hmm_asr.tex).  
 Para trabajarlo en Overleaf se debe cargar `docs/proyecto_integrador_hmm_asr.tex`, `docs/logo_unl.png` y `refs/referencias_hmm_asr_curadas.bib`, conservando la estructura de carpetas.
 
+## Capítulo final de libro
+
+La versión final del capítulo individual está organizada en [`docs/capitulo_21_libro/`](docs/capitulo_21_libro/).
+
+Entregables principales:
+
+- PDF final validado: [`docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Final.pdf`](docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Final.pdf).
+- ZIP final para Overleaf: [`docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Overleaf.zip`](docs/capitulo_21_libro/Capitulo_21_HMM_ASR_Limpio_AntiIA_10Paginas_Overleaf.zip).
+- Fuente LaTeX final: [`docs/capitulo_21_libro/overleaf_package/`](docs/capitulo_21_libro/overleaf_package/).
+- Validación final: [`data/capitulo_21_validacion_final.json`](data/capitulo_21_validacion_final.json).
+- Registro de materiales usados: [`data/capitulo_21_materiales_usados.csv`](data/capitulo_21_materiales_usados.csv).
+
 ## Trazabilidad bibliográfica
 
 La búsqueda previa en Scopus recuperó 321 registros relacionados con HMM y reconocimiento de voz. Por integridad y claridad del proyecto, este repositorio separa dos niveles de bibliografía: la bibliografía efectivamente citada en el documento principal y el corpus activo de 28 fuentes seleccionadas.
 
 - Bibliografía citada en el documento: [`refs/referencias_hmm_asr_curadas.bib`](refs/referencias_hmm_asr_curadas.bib).
 - Corpus bibliográfico activo de 28 fuentes: [`refs/fuentes_hmm_asr_28.bib`](refs/fuentes_hmm_asr_28.bib).
+- Bibliografía IEEE final del capítulo de libro: [`refs/capitulo_21_referencias_ieee.bib`](refs/capitulo_21_referencias_ieee.bib).
 - Tabla de metadatos y estado local de PDFs: [`data/fuentes_hmm_asr_28.csv`](data/fuentes_hmm_asr_28.csv).
 
 Los PDFs completos se conservan como respaldo académico local y no se publican en GitHub.
@@ -51,3 +64,5 @@ La trazabilidad de la APE 007, incluidos los enlaces a los notebooks solicitados
 ## Estado
 
 Estructura inicial del proyecto integrador creada para la Actividad Práctico-Experimental Nro. 007 de la asignatura **Metodología de la Investigación en Computación**.
+
+Actualización posterior: se incorporó la versión final validada del **Capítulo 21: Modelos Ocultos de Markov (HMM) y su aplicación en el reconocimiento automático de la voz**, con PDF, ZIP Overleaf, fuente LaTeX, bibliografía IEEE y reporte de validación.
