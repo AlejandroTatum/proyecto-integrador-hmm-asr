@@ -20,3 +20,7 @@ Para la versión final del Capítulo 21 se añadieron dos archivos de trazabilid
 - `capitulo_21_validacion_final.json`: reporte técnico de validación del PDF final, el ZIP Overleaf, las citas IEEE, los DOI, el conteo de páginas y la corrección de la Tabla 21.3.
 
 Estos archivos permiten reconstruir qué se usó para generar el capítulo sin publicar PDFs de artículos científicos ni documentos internos del docente.
+
+## Portafolio Unidad 1
+
+El archivo `portafolio_unidad_1_productos.csv` registra los productos integrados al portafolio digital de la Unidad 1, su tipo, ubicación dentro del repositorio, estado y criterio de evaluación asociado.

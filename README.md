@@ -34,6 +34,14 @@ Analizar el uso de los modelos ocultos de Markov (HMM) y sus enfoques derivados 
 El archivo editable principal es [`docs/proyecto_integrador_hmm_asr.tex`](docs/proyecto_integrador_hmm_asr.tex).  
 Para trabajarlo en Overleaf se debe cargar `docs/proyecto_integrador_hmm_asr.tex`, `docs/logo_unl.png` y `refs/referencias_hmm_asr_curadas.bib`, conservando la estructura de carpetas.
 
+
+## Portafolio digital Unidad 1
+
+El cierre de la Unidad 1 está organizado en [`docs/portafolio_unidad_1/`](docs/portafolio_unidad_1/). Incluye el reporte técnico de autoevaluación reflexiva, los productos PDF de la unidad, evidencias de integridad e inventario de productos.
+
+- Reporte final: [`docs/portafolio_unidad_1/portafolio_unidad1_autoevaluacion.pdf`](docs/portafolio_unidad_1/portafolio_unidad1_autoevaluacion.pdf).
+- Inventario: [`data/portafolio_unidad_1_productos.csv`](data/portafolio_unidad_1_productos.csv).
+
 ## Capítulo final de libro
 
 La versión final del capítulo individual está organizada en [`docs/capitulo_21_libro/`](docs/capitulo_21_libro/).

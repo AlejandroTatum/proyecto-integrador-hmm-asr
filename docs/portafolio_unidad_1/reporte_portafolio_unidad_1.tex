@@ -1,0 +1,212 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[a4paper,left=3cm,right=3cm,top=2.35cm,bottom=2.35cm,headheight=1.9cm,headsep=0.45cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{helvet}
+\usepackage{ragged2e}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{booktabs}
+\usepackage{etoolbox}
+
+\renewcommand{\familydefault}{\sfdefault}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.18em}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.17}
+\setstretch{1.05}
+\sloppy
+\hypersetup{
+  pdftitle={Portafolio digital Unidad 1 y autoevaluación reflexiva},
+  pdfauthor={Alejandro Padilla Espinoza},
+  pdfsubject={Metodología de la Investigación en Computación},
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  citecolor=black
+}
+\makeatletter
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=1.35cm]{reporte_tecnico_logo.png}}
+\fancyhead[R]{\vspace{0.1cm}\small FEIRNNR -- Carrera de Computación}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\titleformat{\section}{\bfseries\fontsize{15}{17}\selectfont}{\thesection.}{0.8em}{}
+\titlespacing*{\section}{0pt}{1.0ex}{0.45ex}
+\titleformat{\subsection}{\bfseries\fontsize{12}{14}\selectfont}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{0.8ex}{0.3ex}
+
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\begin{document}
+
+\begin{center}
+{\bfseries\fontsize{22}{25}\selectfont
+Reporte Técnico de Cierre de Unidad 1\\
+Portafolio Digital y Autoevaluación Reflexiva\par}
+\vspace{0.25cm}
+{\large Organización de productos, actualización de GitHub y reflexión formativa\par}
+\end{center}
+
+\section{Datos de Identificación del Estudiante y la Actividad}
+
+\begin{tabularx}{\textwidth}{|L{0.43\textwidth}|Y|}
+\hline
+\textbf{Nombre del estudiante(s)} & Alejandro Padilla Espinoza \\ \hline
+\textbf{Asignatura} & Metodología de la Investigación en Computación \\ \hline
+\textbf{Ciclo} & 4A \\ \hline
+\textbf{Unidad} & 1 \\ \hline
+\textbf{Resultado de aprendizaje de la unidad} & R1. Contrasta la investigación y sus tipos con los métodos en el área de Computación y afines. \\ \hline
+\textbf{Actividad} & Cierre del portafolio digital de la Unidad 1 \\ \hline
+\textbf{Título de la actividad} & Portafolio organizado y autoevaluación reflexiva en EVA-Moodle \\ \hline
+\textbf{Nombre del Docente} & Luis Antonio Chamba Eras \\ \hline
+\textbf{Fecha} & Jueves 4 de junio de 2026 \\ \hline
+\textbf{Lugar} & EVA-Moodle / GitHub \\ \hline
+\textbf{Repositorio} & \url{https://github.com/AlejandroTatum/proyecto-integrador-hmm-asr} \\ \hline
+\end{tabularx}
+
+\section{Objetivo de la Actividad}
+
+Cerrar el portafolio digital de la Unidad 1 y completar una autoevaluación reflexiva que evidencie logros, dificultades, lecciones aprendidas y proyección hacia la Unidad 2. La actividad integra productos académicos, repositorio GitHub y reflexión personal para preparar el entregable final en EVA-Moodle.
+
+\section{Recursos Utilizados}
+
+\begin{itemize}[leftmargin=1.1cm,itemsep=2pt]
+  \item Productos elaborados durante la Unidad 1 en la asignatura Metodología de la Investigación en Computación.
+  \item Repositorio GitHub del proyecto integrador HMM-ASR.
+  \item Carpeta local de salidas académicas de Investigación.
+  \item Formato de autoevaluación reflexiva solicitado para EVA-Moodle.
+  \item Reportes, matrices, propuesta, evidencias y capítulo final validados previamente.
+\end{itemize}
+
+\section{Procedimiento / Metodología Ejecutada}
+
+El cierre del portafolio se realizó en cinco pasos. Primero, se localizaron los productos finales de la Unidad 1 en la carpeta de salidas de Investigación. Segundo, se creó una carpeta específica de portafolio dentro del repositorio del proyecto integrador para evitar archivos dispersos. Tercero, se copiaron los productos propios en formato PDF y se generó un inventario con su estado y relación con los criterios de evaluación. Cuarto, se registraron evidencias de integridad mediante checksums y se documentó la organización en archivos de apoyo. Finalmente, se redactó la autoevaluación reflexiva y se preparó este reporte técnico para EVA-Moodle.
+
+\section{Resultados del Portafolio Organizado}
+
+El portafolio quedó ubicado en la carpeta \texttt{docs/portafolio\_unidad\_1/} del repositorio. La organización separa productos, evidencias y reporte final, lo que permite revisar la completitud de la Unidad 1 sin mezclar los archivos con entregables de otras etapas.
+
+\begin{longtable}{|C{0.07\textwidth}|L{0.55\textwidth}|C{0.14\textwidth}|C{0.13\textwidth}|}
+\hline
+\textbf{N.} & \textbf{Producto integrado al portafolio} & \textbf{Tipo} & \textbf{Estado} \\
+\hline
+\endfirsthead
+\hline
+\textbf{N.} & \textbf{Producto integrado al portafolio} & \textbf{Tipo} & \textbf{Estado} \\
+\hline
+\endhead
+1 & ACD 1: tema preliminar HMM-ASR y repertorio inicial & PDF & Completo \\ \hline
+2 & Cuadro comparativo de tipos de investigación en Computación & PDF & Completo \\ \hline
+3 & Mapa conceptual de metodología de la investigación & PDF & Completo \\ \hline
+4 & Ensayo sobre ética e IA generativa & PDF & Completo \\ \hline
+5 & Antecedentes y estado del arte HMM-ASR APE006 & PDF & Completo \\ \hline
+6 & Antecedentes HMM-ASR & PDF & Completo \\ \hline
+7 & Reporte técnico APE006 editado & PDF & Completo \\ \hline
+8 & Matriz de extracción de fuentes & PDF & Completo \\ \hline
+9 & Matriz jerarquizada de fuentes HMM-ASR & PDF & Completo \\ \hline
+10 & Mini propuesta HMM-ASR & PDF & Completo \\ \hline
+11 & Propuesta del proyecto integrador HMM-ASR & PDF & Completo \\ \hline
+12 & Proyecto integrador HMM-ASR APE007 & PDF & Completo \\ \hline
+13 & Reporte técnico APE007 & PDF & Completo \\ \hline
+14 & Capítulo 21 HMM-ASR final de libro & PDF & Completo \\ \hline
+\end{longtable}
+
+\subsection{Estructura registrada en GitHub}
+
+\begin{itemize}[leftmargin=1.1cm,itemsep=2pt]
+  \item \path{docs/portafolio_unidad_1/productos/}: productos finales en PDF.
+  \item \path{docs/portafolio_unidad_1/evidencias/}: checksums y evidencia de actualización.
+  \item \path{data/portafolio_unidad_1_productos.csv}: inventario de productos.
+  \item \path{docs/capitulo_21_libro/}: capítulo final de libro con fuente, PDF, ZIP y validación.
+  \item \texttt{refs/}: bibliografía curada del proyecto y bibliografía final IEEE del capítulo.
+\end{itemize}
+
+\section{Autoevaluación Reflexiva}
+
+\subsection{Logros}
+
+Durante la Unidad 1 logré transformar una idea inicial sobre modelos ocultos de Markov aplicados al reconocimiento automático de voz en un conjunto de productos académicos verificables. El proceso avanzó desde la delimitación del tema hasta la búsqueda documental, matrices de fuentes, propuesta del proyecto integrador, evidencias en GitHub y capítulo final de libro. El logro más importante fue pasar de documentos aislados a una estructura de portafolio con trazabilidad.
+
+También fortalecí mi criterio para diferenciar investigación formativa e investigación científica. Al inicio, el tema HMM-ASR podía parecer solo una revisión técnica; sin embargo, la unidad exigió justificarlo desde problema, fuentes, evidencia, alcance, ética y repositorio. GitHub dejó de ser solo un lugar para guardar archivos y se convirtió en evidencia del proceso.
+
+\subsection{Dificultades}
+
+La principal dificultad fue mantener coherencia entre productos generados en momentos distintos. Algunos documentos tenían enfoques parciales, otros requerían corrección de citas, y varios necesitaban ajustes de formato para cumplir criterios docentes. También fue exigente trabajar con referencias IEEE, porque cada fuente debía conservar metadatos verificables: autores, título, medio de publicación, páginas, fecha y DOI cuando correspondía.
+
+Otra dificultad fue evitar que el portafolio quedara como una acumulación de PDFs. Para que tenga sentido académico, fue necesario ordenar los productos por función: tema preliminar, búsqueda documental, matrices, propuesta, evidencias, capítulo final y autoevaluación. Esa organización permite mostrar progresión de aprendizaje.
+
+\subsection{Lecciones aprendidas}
+
+Aprendí que un portafolio digital debe demostrar proceso, no solo resultado. Un entregable puede estar bien redactado, pero pierde fuerza si no se puede rastrear cómo fue construido. Por eso, la trazabilidad en GitHub, el registro de materiales, los checksums y los reportes de validación aportan valor académico.
+
+También aprendí que la calidad metodológica depende de decisiones pequeñas: formular bien el alcance, seleccionar fuentes pertinentes, validar metadatos, evitar afirmaciones vagas y revisar el documento final como si fuera publicable. Investigar en computación exige conectar teoría, documentación, ética y herramientas digitales.
+
+\subsection{Proyección hacia la Unidad 2}
+
+Para la Unidad 2 debo avanzar hacia una metodología más precisa. La siguiente etapa debería convertir el corpus documental en una matriz de análisis más rigurosa, con categorías sobre robustez, bajo recurso, hibridación, métricas, corpus usados y limitaciones de los sistemas HMM-ASR. También debo sostener la disciplina de versionar avances en GitHub y documentar cambios importantes.
+
+La Unidad 2 debe apoyarse en lo ya construido: tema delimitado, fuentes seleccionadas, bibliografía validada y repositorio actualizado. El reto será no repetir información, sino interpretar mejor la evidencia y justificar cada decisión metodológica.
+
+\section{Relación con los Criterios de Evaluación}
+
+\begin{tabularx}{\textwidth}{|L{0.31\textwidth}|C{0.14\textwidth}|Y|}
+\hline
+\textbf{Criterio} & \textbf{Peso} & \textbf{Evidencia presentada} \\ \hline
+Completitud del portafolio & 40\% & Catorce productos organizados, inventario CSV, carpeta de productos y checksums de integridad. \\ \hline
+Calidad de autoevaluación & 35\% & Reflexión estructurada en logros, dificultades, lecciones aprendidas y proyección hacia Unidad 2. \\ \hline
+Repositorio GitHub & 25\% & Repositorio actualizado con documentos, fuentes, datos, referencias, capítulo final y carpeta de portafolio. \\ \hline
+\end{tabularx}
+
+\section{Entregable para EVA-Moodle}
+
+El entregable para EVA-Moodle queda compuesto por este reporte técnico y el enlace del repositorio GitHub actualizado. El PDF resume el portafolio y la autoevaluación; el repositorio conserva los productos y evidencias organizadas.
+
+\begin{center}
+\url{https://github.com/AlejandroTatum/proyecto-integrador-hmm-asr}
+\end{center}
+
+\section{Conclusiones}
+
+El portafolio digital de la Unidad 1 queda organizado y verificable. Los productos muestran una progresión desde la delimitación del tema hasta la propuesta, búsqueda documental, matrices, evidencias y capítulo final. La autoevaluación permite identificar logros y dificultades, mientras que el repositorio GitHub respalda la trazabilidad del proceso.
+
+La principal mejora para la Unidad 2 será profundizar el análisis metodológico y sostener un flujo de trabajo más anticipado. Mantener el repositorio actualizado, validar referencias y documentar decisiones seguirá siendo necesario para que el proyecto integrador avance con coherencia.
+
+\section{Anexos}
+
+\begin{itemize}[leftmargin=1.1cm,itemsep=2pt]
+  \item \textbf{Anexo A:} Carpeta \path{docs/portafolio_unidad_1/productos/} con los productos PDF de la Unidad 1.
+  \item \textbf{Anexo B:} Inventario \path{data/portafolio_unidad_1_productos.csv}.
+  \item \textbf{Anexo C:} Checksums de productos en \path{docs/portafolio_unidad_1/evidencias/}.
+  \item \textbf{Anexo D:} Capítulo final en \path{docs/capitulo_21_libro/}.
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{guiaUnidad1}
+L. A. Chamba Eras, ``Actividad de cierre de Unidad 1: portafolio digital y autoevaluación reflexiva,'' Universidad Nacional de Loja, Carrera de Computación, Loja, Ecuador, 2026.
+
+\bibitem{repoHMMASR}
+A. Padilla Espinoza, ``Proyecto integrador HMM-ASR,'' GitHub repository, 2026. [En línea]. Disponible en: \url{https://github.com/AlejandroTatum/proyecto-integrador-hmm-asr}
+\end{thebibliography}
+
+\end{document}
