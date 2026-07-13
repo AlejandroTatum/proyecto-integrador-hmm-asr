@@ -1,5 +1,7 @@
 # Proyecto integrador HMM-ASR
 
+Investigación académica sobre el uso de modelos ocultos de Markov en reconocimiento automático de voz y su evolución hacia arquitecturas híbridas y profundas. El repositorio reúne el documento editable, la bibliografía curada y la evidencia de trazabilidad del trabajo.
+
 ## Tema
 
 **Modelos ocultos de Markov y evolución hacia modelos híbridos y profundos en reconocimiento automático de voz.**
@@ -18,6 +20,24 @@ Analizar el uso de los modelos ocultos de Markov (HMM) y sus enfoques derivados 
 - **Mendeley:** organización bibliográfica y exportación de referencias seleccionadas.
 - **Scopus:** corpus documental recuperado en la etapa previa de búsqueda.
 - **GitHub:** trazabilidad de la estructura y evolución del proyecto.
+
+## Uso local
+
+### Requisitos
+
+- Una distribución de LaTeX, como TeX Live, o una cuenta de Overleaf.
+- BibTeX para procesar las referencias.
+
+### Compilar el documento principal
+
+```bash
+git clone https://github.com/AlejandroTatum/hmm-speech-recognition-research.git
+cd hmm-speech-recognition-research
+pdflatex -output-directory=docs docs/proyecto_integrador_hmm_asr.tex
+bibtex docs/proyecto_integrador_hmm_asr
+pdflatex -output-directory=docs docs/proyecto_integrador_hmm_asr.tex
+pdflatex -output-directory=docs docs/proyecto_integrador_hmm_asr.tex
+```
 
 ## Estructura del repositorio
 
@@ -71,6 +91,6 @@ La trazabilidad de la APE 007, incluidos los enlaces a los notebooks solicitados
 
 ## Estado
 
-Estructura inicial del proyecto integrador creada para la Actividad Práctico-Experimental Nro. 007 de la asignatura **Metodología de la Investigación en Computación**.
+Proyecto académico desarrollado para la asignatura **Metodología de la Investigación en Computación**. No es una implementación de un sistema de reconocimiento de voz en producción.
 
 Actualización posterior: se incorporó la versión final validada del **Capítulo 21: Modelos Ocultos de Markov (HMM) y su aplicación en el reconocimiento automático de la voz**, con PDF, ZIP Overleaf, fuente LaTeX, bibliografía IEEE y reporte de validación.
